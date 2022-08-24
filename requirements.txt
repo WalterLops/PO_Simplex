@@ -4,3 +4,4 @@ PyQt6-sip==13.4.0
 matplotlib==3.5.1
 numpy==1.22.2
 pandas==1.4.0
+PuLP==2.6.0
