@@ -48,7 +48,6 @@ class Otimizador(QMainWindow, Ui_MainWindow):
                 self,
                 
                 'Abir arquivo',
-                r'D:/Walter/Desktop/files/Dados enem/DADOS/MICRODADOS_ENEM_2020.csv'
                 #options=QFileDialog.DontUseNativeDialog
             )
             self.localArquivo.setText(arquivo)
@@ -229,7 +228,7 @@ class Otimizador(QMainWindow, Ui_MainWindow):
         Preenche a descrição dos dados da tabela do Simplex
         """
         self.tituloTabelaResult.setText("Resultado")
-        self.result0.setText("Horas de estudo recomendas")
+        self.subtituloTabelaResult.setText("Horas de estudo recomendas")
         self.result1.setText("Ciências Humanas e suas Tecnologias")
         self.result2.setText("Ciências da Natureza e suas Tecnologias")
         self.result3.setText("Linguagens, Códigos e suas Tecnologias")
@@ -241,7 +240,7 @@ class Otimizador(QMainWindow, Ui_MainWindow):
         """
         Faz a limpeza de todos os elementos variáveis da tela
         """
-        self.result0.clear()
+        self.subtituloTabelaResult.clear()
         self.result1.clear()
         self.result2.clear()
         self.result3.clear()
@@ -316,7 +315,7 @@ class Otimizador(QMainWindow, Ui_MainWindow):
         plt.savefig(os.path.join(self.diretorio, "grafico.png"), format='png')
                 
         # definindo o título do gráfico         
-        self.idGrafico.setText("Gráfico com com o desempenho dos alunos na região")
+        self.idGrafico.setText("Gráfico com o desempenho dos alunos na região")
         
         # carregando a imagem da pasta criada
         img = QPixmap(QPixmap(os.path.join(self.diretorio, "grafico.png")))
@@ -338,11 +337,11 @@ class Otimizador(QMainWindow, Ui_MainWindow):
         
         a0, a1, a2, a3, a4 = notas_arquivo
             
-        self.bar1.setText(f"{'Barra 1: Nota da prova de Ciências da Natureza':.<49} {a0:>2.2f}")
-        self.bar2.setText(f"{'Barra 2: Nota da prova de Ciências Humanas':.<49} {a1:>2.2f}")
-        self.bar3.setText(f"{'Barra 3: Nota da prova de Linguagens e Códigos':.<49} {a2:>2.2f}")
-        self.bar4.setText(f"{'Barra 4: Nota da prova de Matemática':.<49} {a3:>2.2f}")
-        self.bar5.setText(f"{'Barra 5: Nota da prova de Redação':.<49} {a4:>2.2f}") 
+        self.bar1.setText(f"{'Barra 1: Nota da prova de Ciências da Natureza':.<50} {a0:2.2f}")
+        self.bar2.setText(f"{'Barra 2: Nota da prova de Ciências Humanas':.<50} {a1:2.2f}")
+        self.bar3.setText(f"{'Barra 3: Nota da prova de Linguagens e Códigos':.<50} {a2:2.2f}")
+        self.bar4.setText(f"{'Barra 4: Nota da prova de Matemática':.<50} {a3:2.2f}")
+        self.bar5.setText(f"{'Barra 5: Nota da prova de Redação':.<50} {a4:2.2f}") 
     
     def reiniciar(self):
         """
@@ -369,9 +368,12 @@ class Otimizador(QMainWindow, Ui_MainWindow):
         try:
             # removendo o diretório onde é gerado a imagem do gráfico
             shutil.rmtree(self.diretorio)
-        except OSError as e:
+        except AttributeError as e:
             pass
-        self.close()
+        except OSError:
+            pass
+        finally:
+            self.close()
      
         
 if __name__ == '__main__':
